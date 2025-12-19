@@ -1,0 +1,168 @@
+{% extends 'exam/adminbase.html' %}
+{% block content %}
+{%load static%}
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+      font-weight: 700 !important;
+      color: #fff !important;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .row {
+      margin: 20px;
+    }
+
+    .container {
+      background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+
+    .panel-primary {
+      border: none !important;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .panel-heading {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+      border: none !important;
+      padding: 20px;
+    }
+
+    .table {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 0;
+    }
+
+    .table thead th {
+      background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+      color: #fff !important;
+      font-weight: 700 !important;
+      border: none;
+      padding: 15px;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .table tbody tr {
+      transition: all 0.3s ease;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .table tbody tr:hover {
+      background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+      transform: scale(1.01);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .table tbody td {
+      padding: 15px;
+      vertical-align: middle;
+      text-align: center;
+      font-weight: 600;
+      color: #2d3748;
+    }
+
+    .table img {
+      border-radius: 50%;
+      border: 3px solid #e2e8f0;
+      transition: transform 0.3s ease;
+    }
+
+    .table img:hover {
+      transform: scale(1.2);
+    }
+
+    .btn {
+      border-radius: 20px !important;
+      font-weight: 600 !important;
+      padding: 8px 15px !important;
+      margin: 0 5px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+      border: none !important;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #ef5350 0%, #e53e3e 100%) !important;
+      border: none !important;
+    }
+
+    .btn-danger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(239, 83, 80, 0.4);
+    }
+
+    .text-center {
+      text-align: center;
+    }
+  </style>
+</head>
+<br><br>
+<div class="container">
+  <div class="panel panel-primary rounded-0">
+    <div class="panel-heading rounded-0">
+      <h6 class="panel-title">Teachers</h6>
+    </div>
+    <table class="table table-hover table-bordered" id="dev-table">
+      <thead>
+        <tr>
+
+          <th>Name</th>
+          <th>Photo</th>
+          <th>Contact</th>
+          <th>Address</th>
+         
+          <th>Action</th>
+        </tr>
+      </thead>
+      {% for t in teachers %}
+      <tr>
+
+        <td> {{t.get_name}}</td>
+        <td> 
+          {% if t.profile_pic %}
+            <img src="{{ t.profile_pic.url }}" alt="Profile Pic" height="40px" width="40px" />
+          {% else %}
+            No Image
+          {% endif %}
+        </td>
+        <td>{{t.mobile}}</td>
+        <td>{{t.address}}</td>
+        
+        <td class='text-center'><a class="btn btn-primary btn-xs" style="border-radius: 0%;" href="{% url 'update-teacher' t.id  %}"><span class="glyphicon glyphicon-edit"></span></a>
+        <a class="btn btn-danger btn-xs" style="border-radius: 0%;" href="{% url 'delete-teacher' t.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<br><br><br><br><br><br>
+{% endblock content %}

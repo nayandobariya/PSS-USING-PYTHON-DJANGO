@@ -1,0 +1,84 @@
+{% extends 'student/studentbase.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="dashboard-container">
+  <h2 class="text-center mb-4 fade-in">Student Dashboard</h2>
+
+  <!-- Profile Section -->
+  <div class="profile-section fade-in-up text-center mb-4">
+    {% if student.profile_pic %}
+      <img src="{{ student.profile_pic.url }}" alt="Profile Picture" class="rounded-circle mb-3" style="width: 120px; height: 120px;">
+    {% else %}
+      <img src="{% static 'image/student.png' %}" alt="Default Student" class="rounded-circle mb-3" style="width: 120px; height: 120px;">
+    {% endif %}
+    <h4>Welcome, {{ student.get_name }}!</h4>
+    <p class="mb-0">Enrollment Number: {{ student.enrollment_number|default:"Not Set" }}</p>
+    <p class="mb-0">Email: {{ student.user.email }}</p>
+    <p class="mb-0">Mobile: {{ student.mobile }}</p>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card student-card">
+        <div class="card-body">
+          <h5 class="card-title">Total Courses: {{ total_course|default:0 }}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card student-card">
+        <div class="card-body">
+          <h5 class="card-title">Total Questions: {{ total_question|default:0 }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-3">
+      <div class="card student-card">
+        <div class="card-body">
+          <h5 class="card-title">My Profile & Paper Showing</h5>
+          <p class="card-text">View and update your profile details</p>
+          <a href="{% url 'student_profile' %}" class="btn btn-primary">View Profile</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card student-card">
+        <div class="card-body">
+          <h5 class="card-title">Assignment Submission</h5>
+          <p class="card-text">Upload and view your assignments</p>
+          <a href="{% url 'papersubmission:upload_paper' %}" class="btn btn-primary">Upload Assignment</a>
+          <a href="{% url 'papersubmission:student_papers' %}" class="btn btn-secondary">View Assignments</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card student-card">
+        <div class="card-body">
+          <h5 class="card-title">Academic Performance</h5>
+          <p class="card-text">Check your exam marks</p>
+          <a href="{% url 'student_marks' %}" class="btn btn-primary">View Marks</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card student-card">
+        <div class="card-body">
+          <h5 class="card-title">Teacher Feedback</h5>
+          <p class="card-text">View feedback from teachers</p>
+          <a href="{% url 'studentprofile:student_profile' %}" class="btn btn-primary">View Feedback</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'js/dashboard.js' %}"></script>
+
+{% endblock %}

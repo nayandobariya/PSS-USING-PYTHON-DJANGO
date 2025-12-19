@@ -1,0 +1,39 @@
+{% extends "student/studentbase.html" %}
+{% block content %}
+<div class="container">
+    <h2>My Assignments</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Course</th>
+                <th>Submission Date</th>
+                <th>Status</th>
+                <th>Marks</th>
+                <th>Feedback</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for paper in papers %}
+            <tr>
+                <td>{{ paper.course.course_name }}</td>
+                <td>{{ paper.submission_date }}</td>
+                <td>{{ paper.get_status_display }}</td>
+                <td>{{ paper.marks|default:"-" }}</td>
+                <td>{{ paper.feedback|default:"-" }}</td>
+                <td>
+                    {% if paper.status == 'checked' %}
+                        <a href="{% url 'papersubmission:generate_pdf' paper.pk %}" class="btn btn-primary btn-sm">Download PDF</a>
+                    {% endif %}
+                    <a href="{{ paper.paper_file.url }}" class="btn btn-secondary btn-sm">Download Paper</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No papers submitted yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

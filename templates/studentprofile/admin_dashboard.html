@@ -1,0 +1,72 @@
+{% extends 'exam/adminbase.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Admin Dashboard - Paper System</h2>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Paper Showing Management</h5>
+        </div>
+        <div class="card-body">
+            {% if requests %}
+                <ul class="list-group">
+                    {% for req in requests %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ req.student.get_name }} - {{ req.course.course_name }} - Roll: {{ req.roll_no }} - Status: {{ req.status }}
+                            {% if req.status == 'pending' %}
+                                <a href="{% url 'studentprofile:approve_request' req.id %}" class="btn btn-sm btn-success">Approve</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No requests.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Paper Requests</h5>
+        </div>
+        <div class="card-body">
+            {% if paper_requests %}
+                <ul class="list-group">
+                    {% for req in paper_requests %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ req.student.get_name }} requested {{ req.paper.title }} - Status: {{ req.status }}
+                            {% if req.status == 'requested' %}
+                                <a href="{% url 'studentprofile:approve_paper_request' req.id %}" class="btn btn-sm btn-success">Approve</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No paper requests.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Feedbacks</h5>
+        </div>
+        <div class="card-body">
+            {% if feedbacks %}
+                <ul class="list-group">
+                    {% for fb in feedbacks %}
+                        <li class="list-group-item">
+                            <strong>{{ fb.paper_request.student.get_name }} on {{ fb.paper_request.paper.title }}</strong><br>
+                            {{ fb.feedback_text }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No feedbacks.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

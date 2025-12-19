@@ -1,0 +1,114 @@
+{% extends 'teacher/teacherbase.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/teacher_upload.css' %}">
+<div class="container mt-4">
+    <h2 class="mb-4">Upload Individual Student Papers</h2>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data" id="uploadForm">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label for="id_course" class="form-label fw-bold">Select Course</label>
+                            {{ form.course }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label for="id_selected_students" class="form-label fw-bold">Select Students</label>
+                            <div class="student-selection-container p-3" style="max-height: 300px; overflow-y: auto;">
+                                {{ form.selected_students }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mb-4">
+                    <button type="button" id="generateListBtn" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-list"></i> Generate Selected Student List
+                    </button>
+                </div>
+                <div id="uploadSection" style="display:none;">
+                    <hr class="my-4">
+                    <h4 class="mb-3">Upload Paper Details</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="id_title" class="form-label">Paper Title</label>
+                                {{ form.title }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="id_excel_file" class="form-label">Excel File (with marks)</label>
+                                {{ form.excel_file }}
+                            </div>
+                        </div>
+                    </div>
+                    <table id="studentUploadArea" class="table table-striped mb-4">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Upload Paper File (PDF/DOC)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Upload fields for selected students will appear here -->
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="fas fa-upload"></i> Upload Papers for Selected Students
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const checkboxes = document.querySelectorAll('input[name="selected_students"]');
+    const uploadSection = document.getElementById('uploadSection');
+    const studentUploadArea = document.getElementById('studentUploadArea').querySelector('tbody');
+    const generateListBtn = document.getElementById('generateListBtn');
+
+    function updateUploadSection() {
+        const selectedCheckboxes = Array.from(checkboxes).filter(cb => cb.checked);
+        if (selectedCheckboxes.length > 0) {
+            uploadSection.style.display = 'block';
+            studentUploadArea.innerHTML = '';
+            selectedCheckboxes.forEach(checkbox => {
+                const studentId = checkbox.value;
+                const studentName = checkbox.parentElement.textContent.trim();
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${studentName}</td>
+                    <td>
+                        <input type="file" name="student_files[${studentId}]" class="form-control" accept=".pdf,.doc,.docx" required>
+                    </td>
+                `;
+                studentUploadArea.appendChild(row);
+            });
+        } else {
+            uploadSection.style.display = 'none';
+        }
+    }
+
+    generateListBtn.addEventListener('click', function() {
+        updateUploadSection();
+    });
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateUploadSection);
+    });
+
+    // Initial check
+    updateUploadSection();
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+
+    header {
+      position: fixed;
+      padding: 20px;
+      width: 100%;
+      z-index: 1;
+      height: 5.8em !important;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-bottom: 3px solid #5a67d8;
+    }
+
+    .left_area h3 {
+      margin: 0px;
+      text-transform: uppercase;
+      font-size: 24px;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .left_area span {
+      color: #ffd700;
+    }
+
+    .logout_btn {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #ef5350 0%, #e53e3e 100%);
+      text-decoration: none;
+      float: right;
+      margin-top: -30px;
+      margin-right: 40px;
+      border-radius: 25px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(239, 83, 80, 0.3);
+    }
+
+    .logout_btn:hover {
+      background: linear-gradient(135deg, #ca4745 0%, #c53030 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(239, 83, 80, 0.4);
+    }
+
+    .sidebar {
+      background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+      margin-top: 5.8em;
+      padding-top: 30px;
+      position: fixed;
+      left: 0;
+      width: 250px;
+      height: 100%;
+      transition: all 0.3s ease;
+      box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+    }
+
+    .sidebar .profile_image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      border: 4px solid #fff;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar .profile_image:hover {
+      transform: scale(1.1);
+    }
+
+    .sidebar h4 {
+      color: #fff;
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-weight: 600;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .sidebar a {
+      color: #e2e8f0;
+      display: block;
+      width: 100%;
+      line-height: 60px;
+      text-decoration: none;
+      padding-left: 40px;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+      border-left: 4px solid transparent;
+    }
+
+    .sidebar a:hover {
+      background: linear-gradient(90deg, #4a5568 0%, #2d3748 100%);
+      color: #fff;
+      border-left-color: #ffd700;
+      transform: translateX(5px);
+    }
+
+    .sidebar i {
+      padding-right: 15px;
+      width: 20px;
+    }
+
+    label #sidebar_btn {
+      z-index: 1;
+      position: fixed;
+      cursor: pointer;
+      left: 300px;
+      font-size: 24px;
+      margin: 5px 0;
+      transition: all 0.3s ease;
+      color: #4a5568;
+      background: #fff;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    label #sidebar_btn:hover {
+      color: #2d3748;
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #check:checked ~ .sidebar {
+      left: -190px;
+    }
+
+    #check:checked ~ .sidebar a span {
+      display: none;
+    }
+
+    #check:checked ~ .sidebar a {
+      font-size: 20px;
+      margin-left: 170px;
+      width: 80px;
+    }
+
+    .content {
+      margin-left: 250px;
+      background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+      min-height: 100vh;
+      transition: margin-left 0.3s ease;
+      padding: 20px;
+    }
+
+    #check:checked ~ .content {
+      margin-left: 60px;
+    }
+
+    #check {
+      display: none;
+    }
+
+    .panel-primary {
+      border-color: #2d3748 !important;
+    }
+
+    .panel-primary > .panel-heading {
+      background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
+      border-color: #2d3748 !important;
+      color: #fff;
+    }
+
+    /* Scrollbar styling */
+    .sidebar::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+      background: #2d3748;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: #4a5568;
+      border-radius: 4px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb:hover {
+      background: #718096;
+    }
+  </style>
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<body>
+
+  <input type="checkbox" id="check">
+  <!--header area start-->
+  <header class="shadow bg-light">
+    <label for="check">
+      <i style="left: 200px;margin-top: 17px;"class="fas fa-bars" id="sidebar_btn"></i>
+    </label>
+    <div class="left_area">
+      <h3>Online Exam</h3>
+    </div>
+    <div class="right_area">
+      <a href="/logout" class="logout_btn" style="border-radius:0px;"> Logout</a>
+    </div>
+  </header>
+  <!--header area end-->
+  <!--sidebar start-->
+  <div class="sidebar">
+    <center>
+
+      <img src="{% static "image/admin-avatar.png" %}" class="profile_image" alt="">
+      <h4>Admin</h4>
+
+    </center>
+
+    <a href="/admin-dashboard"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+    <a href="/admin-teacher"><i class="fas fa-chalkboard-teacher"></i><span>Teacher Section</span></a>
+    <a href="/admin-student"><i class="fas fa-user-graduate"></i><span>Student Section</span></a>
+    <a href="/admin-course"><i class="fas fa-book"></i><span>Manage Courses</span></a>
+    <a href="/admin-question"><i class="fas fa-question-circle"></i><span>Manage Questions</span></a>
+    
+
+
+  </div>
+  <!--sidebar end-->
+
+
+  <!--content start-->
+  <div class="content">
+    <br><br><br><br><br>
+    {% block content %}
+
+    {% endblock content %}
+
+
+    <br><br><br>
+    {% include "exam/footer.html" %}
+  </div>
+  <!--content end-->
+  {% include "chat/chat_widget.html" %}
+</body>
+
+</html>

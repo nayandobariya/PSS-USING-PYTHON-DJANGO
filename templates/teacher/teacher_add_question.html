@@ -1,0 +1,41 @@
+{% extends 'teacher/teacherbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+<h2 style="text-align:center; font-weight: 700; color: #2d3748; text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8); margin-bottom: 40px; font-size: 2.5rem;">Add Question</h2>
+<form method="POST" autocomplete="off" style="max-width: 700px; margin: 40px auto 0; background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0;">
+    {%csrf_token%}
+    <div class="form-group">
+        <label for="question" style="font-weight: 600; color: #4a5568; margin-bottom: 8px; display: block; font-size: 1.1rem;">Course</label>
+      {% render_field questionForm.courseID|attr:'required:true' class="form-control rounded-0"  %}
+        <br>
+
+      <label for="question" style="font-weight: 600; color: #4a5568; margin-bottom: 8px; display: block; font-size: 1.1rem;">Question</label>
+      {% render_field questionForm.question|attr:'required:true' class="form-control rounded-0" placeholder="Example: What is the relation calculus?" %}
+        <br>
+      <label for="question_number" style="font-weight: 600; color: #4a5568; margin-bottom: 8px; display: block; font-size: 1.1rem;">Marks</label>
+      {% render_field questionForm.marks|attr:'required:true' class="form-control rounded-0" placeholder="Example: 5" %}
+        <br>
+      <label for="option1" style="font-weight: 600; color: #4a5568; margin-bottom: 8px; display: block; font-size: 1.1rem;">Option 1</label>
+      {% render_field questionForm.option1|attr:'required:true' class="form-control rounded-0" placeholder="Example: It is a kind of procedural language" %}
+        <br>
+      <label for="option2" style="font-weight: 600; color: #4a5568; margin-bottom: 8px; display: block; font-size: 1.1rem;">Option 2</label>
+      {% render_field questionForm.option2|attr:'required:true' class="form-control rounded-0" placeholder="Example: It is a non-procedural language" %}
+        <br>
+      <label for="option3" style="font-weight: 600; color: #4a5568; margin-bottom: 8px; display: block; font-size: 1.1rem;">Option 3</label>
+      {% render_field questionForm.option3|attr:'required:true' class="form-control rounded-0" placeholder="Example: It is a high-level language" %}
+        <br>
+      <label for="option4" style="font-weight: 600; color: #4a5568; margin-bottom: 8px; display: block; font-size: 1.1rem;">Option 4</label>
+      {% render_field questionForm.option4|attr:'required:true' class="form-control rounded-0" placeholder="Example: It is Data Definition language" %}
+        <br>
+      <label for="answer" style="font-weight: 600; color: #4a5568; margin-bottom: 8px; display: block; font-size: 1.1rem;">Correct Answer</label>
+      {% render_field questionForm.answer|attr:'required:true' class="form-control rounded-0" %}
+    </div>
+    
+
+    <button type="submit" class="btn btn-success rounded-0" style="font-weight: 700; padding: 12px 30px; font-size: 1.1rem; letter-spacing: 1px;">Submit Question</button>
+  </form>
+<br><br><br>
+{% endblock content %}

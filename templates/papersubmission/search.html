@@ -1,0 +1,14 @@
+{% extends "student/studentbase.html" %}
+{% block content %}
+<div class="container">
+    <h2>Search Your Checked Paper</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="enrollment">Enter Your Enrollment Number:</label>
+            <input type="text" class="form-control" id="enrollment" name="enrollment" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+{% endblock %}

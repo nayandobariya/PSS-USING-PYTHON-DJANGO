@@ -1,0 +1,74 @@
+{% extends 'exam/adminbase.html' %}
+{% block content %}
+{%load static%}
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    .row {
+      margin: 100px;
+    }
+  </style>
+</head>
+<br><br>
+<div class="container">
+    <div class="panel panel-primary rounded-0">
+      <div class="panel-heading rounded-0">
+        <h6 class="panel-title">Pending Teachers</h6>
+        {% if teachers %}
+        <a href="{% url 'approve-all-teachers' %}" class="btn btn-primary float-right" onclick="return confirm('Are you sure you want to approve all pending teachers?')">Approve All Teachers</a>
+        {% endif %}
+      </div>
+    <form method="post">
+      {% csrf_token %}
+      <table class="table table-hover table-bordered" id="dev-table">
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>Name</th>
+            <th>Photo</th>
+            <th>Contact</th>
+            <th>Address</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        {% for t in teachers %}
+        <tr>
+          <td><input type="checkbox" name="selected" value="{{ t.id }}"></td>
+          <td> {{t.get_name}}</td>
+          <td>
+            {% if t.profile_pic %}
+              <img src="{{ t.profile_pic.url }}" alt="Profile Pic" height="40px" width="40px" />
+            {% else %}
+              No Image
+            {% endif %}
+          </td>
+          <td>{{t.mobile}}</td>
+          <td>{{t.address}}</td>
+          <td><a class="btn btn-success btn-sm" style="border-radius: 0%;" href="{% url 'approve-teacher' t.id  %}"><span class="glyphicon glyphicon-ok"></span></a>
+          <a class="btn btn-danger btn-sm" style="border-radius: 0%;" href="{% url 'reject-teacher' t.id  %}"><span class="	glyphicon glyphicon-remove"></span></a></td>
+        </tr>
+        {% endfor %}
+      </table>
+      <div class="form-group">
+        <button type="submit" name="action" value="approve_selected" class="btn btn-success" onclick="return confirm('Approve selected teachers?')">Approve Selected</button>
+        <button type="submit" name="action" value="reject_selected" class="btn btn-danger" onclick="return confirm('Reject selected teachers? This cannot be undone.')">Reject Selected</button>
+        <a href="{% url 'approve-all-teachers' %}" class="btn btn-primary" onclick="return confirm('Are you sure you want to approve all pending teachers?')">Approve All</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<br><br><br><br><br><br>
+{% endblock content %}

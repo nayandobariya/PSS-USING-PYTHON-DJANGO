@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Signup</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% include "exam/navbar.html" %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title mb-0">Teacher Registration</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="{{ userForm.first_name.id_for_label }}">First Name</label>
+                                {{ userForm.first_name|add_class:"form-control" }}
+                                {% if userForm.first_name.errors %}
+                                    <div class="text-danger">{{ userForm.first_name.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ userForm.last_name.id_for_label }}">Last Name</label>
+                                {{ userForm.last_name|add_class:"form-control" }}
+                                {% if userForm.last_name.errors %}
+                                    <div class="text-danger">{{ userForm.last_name.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ userForm.username.id_for_label }}">Username</label>
+                                {{ userForm.username|add_class:"form-control" }}
+                                {% if userForm.username.errors %}
+                                    <div class="text-danger">{{ userForm.username.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ userForm.password.id_for_label }}">Password</label>
+                                {{ userForm.password|add_class:"form-control" }}
+                                {% if userForm.password.errors %}
+                                    <div class="text-danger">{{ userForm.password.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ teacherForm.address.id_for_label }}">Address</label>
+                                {{ teacherForm.address|add_class:"form-control" }}
+                                {% if teacherForm.address.errors %}
+                                    <div class="text-danger">{{ teacherForm.address.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ teacherForm.mobile.id_for_label }}">Mobile</label>
+                                {{ teacherForm.mobile|add_class:"form-control" }}
+                                {% if teacherForm.mobile.errors %}
+                                    <div class="text-danger">{{ teacherForm.mobile.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ teacherForm.profile_pic.id_for_label }}">Profile Picture</label>
+                                {{ teacherForm.profile_pic|add_class:"form-control-file" }}
+                                {% if teacherForm.profile_pic.errors %}
+                                    <div class="text-danger">{{ teacherForm.profile_pic.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include "exam/footer.html" %}
+</body>
+</html>

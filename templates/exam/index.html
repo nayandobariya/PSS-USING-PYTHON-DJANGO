@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<style>
+  .jumbotron{
+    margin-bottom: 0px;
+  }
+</style>
+<body>
+  {% include "exam/navbar.html" %}
+<br>
+<section id="section-jumbotron" class="jumbotron jumbotron-fluid d-flex justify-content-center align-items-center">
+  <div class="container text-center">
+    <h2 class="display-3 text-info">WELCOME TO LJ UNIVERSITY</h2>
+    <p class="display-4 d-none d-sm-block">START YOUR Journey!</p>
+    <p class="lead">Sign Up now to start your online APPLICATION</p>
+
+  
+    <p><strong> Start Your Journey Here:</strong></p>
+    <a href="{% url 'student_signup' %}" class="btn btn-lg btn-info" style="padding-right: 35px; border-radius: 0%;"><i class="fa fa-graduation-cap" aria-hidden="true"></i> START </a>
+    
+    <br><br><br>
+  </div>  
+</section>
+  {% include "exam/footer.html" %}
+
+
+</body>
+
+</html>

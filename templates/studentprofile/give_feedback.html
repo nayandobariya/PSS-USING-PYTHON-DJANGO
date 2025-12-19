@@ -1,0 +1,17 @@
+{% extends 'student/studentbase.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Give Feedback</h2>
+    <p>Paper: {{ paper_request.paper.title }} - {{ paper_request.paper.course.course_name }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.feedback_text.id_for_label }}">Feedback</label>
+            {{ form.feedback_text }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Feedback</button>
+    </form>
+</div>
+{% endblock %}

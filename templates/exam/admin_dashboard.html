@@ -1,0 +1,408 @@
+{% extends 'exam/adminbase.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="dashboard-container">
+  <h2 class="text-center mb-4 fade-in">Admin Dashboard - Power BI Style</h2>
+
+  <!-- Power BI Style Charts Section -->
+  <div class="charts-section">
+    <div class="row">
+      <!-- System Overview Pie Chart -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="chart-container">
+          <h4 class="text-center mb-3">System Overview</h4>
+          <canvas id="systemOverviewChart" width="300" height="300"></canvas>
+        </div>
+      </div>
+
+      <!-- User Distribution Doughnut Chart -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="chart-container">
+          <h4 class="text-center mb-3">User Distribution</h4>
+          <canvas id="userDistributionChart" width="300" height="300"></canvas>
+        </div>
+      </div>
+
+      <!-- System Metrics Bar Chart -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="chart-container">
+          <h4 class="text-center mb-3">System Metrics</h4>
+          <canvas id="systemMetricsChart" width="300" height="300"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Paper Request Status Bar Chart -->
+      <div class="col-lg-6 col-md-12 mb-4">
+        <div class="chart-container">
+          <h4 class="text-center mb-3">Paper Request Status</h4>
+          <canvas id="paperRequestChart" width="400" height="300"></canvas>
+        </div>
+      </div>
+
+      <!-- Approval Status Horizontal Bar Chart -->
+      <div class="col-lg-6 col-md-12 mb-4">
+        <div class="chart-container">
+          <h4 class="text-center mb-3">Approval Status</h4>
+          <canvas id="approvalStatusChart" width="400" height="300"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-xl-3">
+        <a href="admin-view-student" style="text-decoration: none;color:white;" data-toggle="tooltip" title="View all registered students">
+        <div class="card order-card" style="background: linear-gradient(135deg, #3186ca 0%, #4C51BF 100%);">
+          <div class="card-block">
+            <h6 class="m-b-20">Total Students</h6>
+            <h2 class="text-right"><i class="fas fa-user-graduate f-left"></i><span>{{total_student}}</span></h2>
+          </div>
+        </div>
+      </a>
+      </div>
+
+      <div class="col-md-4 col-xl-3">
+        <a href="admin-view-teacher" style="text-decoration: none;color:white;" data-toggle="tooltip" title="View all teachers">
+        <div class="card order-card" style="background: linear-gradient(135deg, #4C51BF 0%, #3186ca 100%);">
+          <div class="card-block">
+            <h6 class="m-b-20">Approved Teachers</h6>
+            <h2 class="text-right"><i class="fas fa-chalkboard-teacher f-left"></i><span>{{total_teacher}}</span></h2>
+          </div>
+        </div>
+      </a>
+      </div>
+
+      <div class="col-md-4 col-xl-3">
+        <a href="admin-view-course" style="text-decoration: none;color:white;" data-toggle="tooltip" title="Manage courses">
+        <div class="card order-card" style="background: linear-gradient(135deg, #104f66 0%, #53616e 100%);">
+          <div class="card-block">
+            <h6 class="m-b-20">Total Courses</h6>
+           <h2 class="text-right"><i class="fas fa-book f-left"></i><span>{{total_course}}</span></h2>
+          </div>
+        </div>
+      </a>
+      </div>
+
+      <div class="col-md-4 col-xl-3">
+        <a href="admin-view-question" style="text-decoration: none;color:white;" data-toggle="tooltip" title="View all questions">
+        <div class="card order-card" style="background: linear-gradient(135deg, #53616e 0%, #104f66 100%);">
+          <div class="card-block">
+            <h6 class="m-b-20">Available Questions</h6>
+            <h2 class="text-right"><i class="fas fa-question-circle f-left"></i><span>{{total_question}}</span></h2>
+          </div>
+        </div>
+      </a>
+      </div>
+
+      <div class="col-md-4 col-xl-3">
+        <a href="{% url 'papersubmission:list_pending_papers' %}" style="text-decoration: none;color:white;" data-toggle="tooltip" title="Manage assignments">
+        <div class="card order-card" style="background: linear-gradient(135deg, #3186ca 0%, #104f66 100%);">
+          <div class="card-block">
+            <h6 class="m-b-20">Pending Papers</h6>
+            <h2 class="text-right"><i class="fas fa-file-alt f-left"></i><span>{{pending_papers}}</span></h2>
+          </div>
+        </div>
+      </a>
+      </div>
+
+      <div class="col-md-4 col-xl-3">
+        <a href="{% url 'studentprofile:admin_dashboard' %}" style="text-decoration: none;color:white;" data-toggle="tooltip" title="Manage paper submissions">
+        <div class="card order-card" style="background: linear-gradient(135deg, #53616e 0%, #4C51BF 100%);">
+          <div class="card-block">
+            <h6 class="m-b-20">Paper Requests</h6>
+            <h2 class="text-right"><i class="fas fa-user-edit f-left"></i><span>{{total_paper_requests}}</span></h2>
+          </div>
+        </div>
+      </a>
+      </div>
+
+      <div class="col-md-4 col-xl-3">
+        <a href="{% url 'admin-view-pending-student' %}" style="text-decoration: none;color:white;" data-toggle="tooltip" title="Approve pending students">
+        <div class="card order-card" style="background: linear-gradient(135deg, #3186ca 0%, #53616e 100%);">
+          <div class="card-block">
+            <h6 class="m-b-20">Pending Students</h6>
+            <h2 class="text-right"><i class="fas fa-user-check f-left"></i><span>{{ pending_student }}</span></h2>
+          </div>
+        </div>
+      </a>
+      </div>
+
+      <div class="col-md-4 col-xl-3">
+        <a href="{% url 'admin-view-pending-teacher' %}" style="text-decoration: none;color:white;" data-toggle="tooltip" title="Approve pending teachers">
+        <div class="card order-card" style="background: linear-gradient(135deg, #4C51BF 0%, #104f66 100%);">
+          <div class="card-block">
+            <h6 class="m-b-20">Pending Teachers</h6>
+            <h2 class="text-right"><i class="fas fa-user-clock f-left"></i><span>{{ pending_teacher }}</span></h2>
+          </div>
+        </div>
+      </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Power BI Dashboard initializing...');
+
+  // Data from Django template
+  const data = {
+    total_student: {{total_student|default:0}},
+    total_teacher: {{total_teacher|default:0}},
+    total_course: {{total_course|default:0}},
+    total_question: {{total_question|default:0}},
+    pending_student: {{pending_student|default:0}},
+    pending_teacher: {{pending_teacher|default:0}},
+    pending_papers: {{pending_papers|default:0}},
+    total_paper_requests: {{total_paper_requests|default:0}},
+    approved_paper_requests: {{approved_paper_requests|default:0}},
+    approved_student: {{approved_student|default:0}}
+  };
+
+  console.log('Dashboard data:', data);
+
+  // 1. System Overview Pie Chart
+  const systemOverviewCtx = document.getElementById('systemOverviewChart').getContext('2d');
+  new Chart(systemOverviewCtx, {
+    type: 'pie',
+    data: {
+      labels: ['Students', 'Teachers', 'Courses', 'Questions'],
+      datasets: [{
+        data: [data.total_student, data.total_teacher, data.total_course, data.total_question],
+        backgroundColor: [
+          '#FF6384',
+          '#36A2EB',
+          '#FFCE56',
+          '#4BC0C0'
+        ],
+        borderWidth: 2,
+        borderColor: '#fff'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            padding: 20,
+            usePointStyle: true
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              const label = context.label || '';
+              const value = context.parsed;
+              const total = context.dataset.data.reduce((a, b) => a + b, 0);
+              const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+              return `${label}: ${value} (${percentage}%)`;
+            }
+          }
+        }
+      },
+      animation: {
+        animateScale: true,
+        animateRotate: true
+      }
+    }
+  });
+
+  // 2. User Distribution Doughnut Chart
+  const userDistributionCtx = document.getElementById('userDistributionChart').getContext('2d');
+  new Chart(userDistributionCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Approved Students', 'Approved Teachers', 'Pending Students', 'Pending Teachers'],
+      datasets: [{
+        data: [data.approved_student, data.total_teacher, data.pending_student, data.pending_teacher],
+        backgroundColor: [
+          '#4CAF50',
+          '#2196F3',
+          '#FF9800',
+          '#F44336'
+        ],
+        borderWidth: 3,
+        borderColor: '#fff'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            padding: 20,
+            usePointStyle: true
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              const label = context.label || '';
+              const value = context.parsed;
+              const total = context.dataset.data.reduce((a, b) => a + b, 0);
+              const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+              return `${label}: ${value} (${percentage}%)`;
+            }
+          }
+        }
+      },
+      animation: {
+        animateScale: true,
+        animateRotate: true
+      }
+    }
+  });
+
+  // 3. System Metrics Bar Chart
+  const systemMetricsCtx = document.getElementById('systemMetricsChart').getContext('2d');
+  new Chart(systemMetricsCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Courses', 'Questions', 'Pending Papers', 'Paper Requests'],
+      datasets: [{
+        label: 'Count',
+        data: [data.total_course, data.total_question, data.pending_papers, data.total_paper_requests],
+        backgroundColor: [
+          '#9C27B0',
+          '#3F51B5',
+          '#009688',
+          '#FF5722'
+        ],
+        borderWidth: 1,
+        borderColor: '#fff'
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          mode: 'index',
+          intersect: false
+        }
+      },
+      animation: {
+        duration: 2000,
+        easing: 'easeInOutQuart'
+      }
+    }
+  });
+
+  // 4. Paper Request Status Bar Chart
+  const paperRequestCtx = document.getElementById('paperRequestChart').getContext('2d');
+  new Chart(paperRequestCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Paper Requests'],
+      datasets: [{
+        label: 'Approved',
+        data: [data.approved_paper_requests],
+        backgroundColor: '#4CAF50',
+        borderColor: '#4CAF50',
+        borderWidth: 1
+      }, {
+        label: 'Pending',
+        data: [data.total_paper_requests - data.approved_paper_requests],
+        backgroundColor: '#F44336',
+        borderColor: '#F44336',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        tooltip: {
+          mode: 'index',
+          intersect: false
+        }
+      },
+      animation: {
+        duration: 2000,
+        easing: 'easeInOutQuart'
+      }
+    }
+  });
+
+  // 5. Approval Status Horizontal Bar Chart
+  const approvalStatusCtx = document.getElementById('approvalStatusChart').getContext('2d');
+  new Chart(approvalStatusCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Students', 'Teachers'],
+      datasets: [{
+        label: 'Approved',
+        data: [data.approved_student, data.total_teacher],
+        backgroundColor: '#4CAF50',
+        borderColor: '#4CAF50',
+        borderWidth: 1
+      }, {
+        label: 'Pending',
+        data: [data.pending_student, data.pending_teacher],
+        backgroundColor: '#FF9800',
+        borderColor: '#FF9800',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        tooltip: {
+          mode: 'index',
+          intersect: false
+        }
+      },
+      animation: {
+        duration: 2000,
+        easing: 'easeInOutQuart'
+      }
+    }
+  });
+
+  console.log('Power BI Dashboard charts initialized successfully!');
+});
+</script>
+
+{% endblock content %}

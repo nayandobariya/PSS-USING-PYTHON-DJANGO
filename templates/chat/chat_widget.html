@@ -1,0 +1,25 @@
+{% load static %}
+<!-- Chat Widget -->
+<div id="chat-widget">
+    <div id="chat-toggle">
+        <i class="fas fa-comments"></i>
+    </div>
+    <div id="chat-window">
+        <div id="chat-header">
+            <span>AI Assistant</span>
+            <button id="chat-close">&times;</button>
+        </div>
+        <div id="chat-messages">
+            <div class="message bot-message">
+                <div class="message-content">Hello! How can I help you today?</div>
+            </div>
+        </div>
+        <div id="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Type your message...">
+            <button id="chat-send">Send</button>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/chat.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/chat.css' %}">

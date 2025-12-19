@@ -1,0 +1,86 @@
+{% extends 'teacher/teacherbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<style>
+    .sidebar { display: none; }
+    .content { margin-left: 0; }
+    .jumbotron { background-color: #f8f9fa; border-radius: 0.5rem; }
+    .card { box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    .table th { background-color: #343a40; color: white; }
+    .btn-action { margin-right: 5px; }
+</style>
+
+    <div class="jumbotron" style="margin-bottom:0px;">
+        <h1 class="display-4">Pending Student Approvals</h1>
+        <p class="lead">Manage student registration requests awaiting approval</p>
+        <hr class="my-4">
+        <p>Review and approve or reject student applications</p>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Students Waiting for Approval</h4>
+                        {% if students %}
+                        <a href="{% url 'teacher-approve-all-students' %}" class="btn btn-primary float-right" onclick="return confirm('Are you sure you want to approve all pending students?')">Approve All Students</a>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        {% if students %}
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Select</th>
+                                            <th>Name</th>
+                                            <th>Mobile</th>
+                                            <th>Address</th>
+                                            <th>Email</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for student in students %}
+                                        <tr>
+                                            <td><input type="checkbox" name="selected" value="{{ student.id }}"></td>
+                                            <td>{{ student.get_name }}</td>
+                                            <td>{{ student.mobile }}</td>
+                                            <td>{{ student.address }}</td>
+                                            <td>{{ student.user.email }}</td>
+                                            <td>
+                                                <a href="{% url 'teacher-approve-student' student.id %}" class="btn btn-success btn-sm btn-action" onclick="return confirm('Are you sure you want to approve this student?')">
+                                                    Approve
+                                                </a>
+                                                <a href="{% url 'teacher-reject-student' student.id %}" class="btn btn-danger btn-sm btn-action" onclick="return confirm('Are you sure you want to reject and delete this student? This action cannot be undone.')">
+                                                    Reject
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" name="action" value="approve_selected" class="btn btn-success" onclick="return confirm('Approve selected students?')">Approve Selected</button>
+                                <button type="submit" name="action" value="reject_selected" class="btn btn-danger" onclick="return confirm('Reject selected students? This cannot be undone.')">Reject Selected</button>
+                                <a href="{% url 'teacher-approve-all-students' %}" class="btn btn-primary" onclick="return confirm('Are you sure you want to approve all pending students?')">Approve All</a>
+                            </div>
+                        </form>
+                        {% else %}
+                        <div class="alert alert-info">
+                            <strong>No pending student approvals!</strong> All students have been processed.
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

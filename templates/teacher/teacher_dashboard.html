@@ -1,0 +1,111 @@
+{% extends 'teacher/teacherbase.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="dashboard-container">
+  <h2 class="text-center mb-4 fade-in">Teacher Dashboard</h2>
+
+  <!-- Stats Chart -->
+  <div class="chart-container">
+    <h4 class="text-center mb-3">Overview</h4>
+    <canvas id="teacherStatsChart"
+            data-students="{{ total_student }}"
+            data-courses="{{ total_course }}"
+            data-questions="{{ total_question }}"></canvas>
+  </div>
+
+  <!-- Profile Section -->
+  <div class="profile-section fade-in-up">
+    {% if teacher.profile_pic %}
+      <img src="{{ teacher.profile_pic.url }}" width="120" height="120" alt="Teacher Profile">
+    {% else %}
+      <img src="{% static 'image/teacher-avatar.png' %}" width="120" height="120" alt="Default Teacher">
+    {% endif %}
+    <h4>{{ teacher.user.first_name }} {{ teacher.user.last_name }}</h4>
+    <p style="color:gray;">Teacher</p>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-xl-4">
+        <div class="card order-card" style="background: linear-gradient(135deg, #303a3c 0%, #53616e 100%);">
+          <div class="card-block">
+            <h6 class="m-b-20">Registered Students</h6>
+            <h2 class="text-right"><i class="fas fa-user-graduate f-left"></i><span>{{ total_student }}</span></h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-xl-4">
+        <div class="card order-card" style="background: linear-gradient(135deg, #53616e 0%, #4C51BF 100%);">
+          <div class="card-block">
+            <h6 class="m-b-20">Total Courses</h6>
+            <h2 class="text-right"><i class="fas fa-book f-left"></i><span>{{ total_course }}</span></h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-xl-4">
+        <div class="card order-card" style="background: linear-gradient(135deg, #104f66 0%, #3186ca 100%);">
+          <div class="card-block">
+            <h6 class="m-b-20">Total Questions</h6>
+            <h2 class="text-right"><i class="fas fa-question-circle f-left"></i><span>{{ total_question }}</span></h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-xl-4">
+        <a href="{% url 'papersubmission:list_pending_papers' %}" style="text-decoration: none;color:white;" data-toggle="tooltip" title="Pending Theory Papers">
+          <div class="card order-card" style="background: linear-gradient(135deg, #303a3c 0%, #104f66 100%);">
+            <div class="card-block">
+              <h6 class="m-b-20">Pending Theory Papers</h6>
+              <h2 class="text-right"><i class="fas fa-file-alt f-left"></i><span>{{ pending_papers }}</span></h2>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-md-4 col-xl-4">
+        <a href="{% url 'studentprofile:teacher_upload' %}" style="text-decoration: none;color:white;" data-toggle="tooltip" title="Upload Excel Papers">
+          <div class="card order-card" style="background: linear-gradient(135deg, #4C51BF 0%, #3186ca 100%);">
+            <div class="card-block">
+              <h6 class="m-b-20">Upload Excel Papers</h6>
+              <h2 class="text-right"><i class="fas fa-upload f-left"></i><span>Upload</span></h2>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-md-4 col-xl-4">
+        <a href="{% url 'studentprofile:teacher_dashboard' %}" style="text-decoration: none;color:white;" data-toggle="tooltip" title="Manage Paper Submissions">
+          <div class="card order-card" style="background: linear-gradient(135deg, #3186ca 0%, #4C51BF 100%);">
+            <div class="card-block">
+              <h6 class="m-b-20">Paper Management</h6>
+              <h2 class="text-right"><i class="fas fa-tasks f-left"></i><span>Manage</span></h2>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 col-xl-4">
+        <a href="{% url 'teacher-view-pending-student' %}" style="text-decoration: none;color:white;" data-toggle="tooltip" title="Approve Pending Students">
+          <div class="card order-card" style="background: linear-gradient(135deg, #663a30 0%, #3186ca 100%);">
+            <div class="card-block">
+              <h6 class="m-b-20">Pending Student Approvals</h6>
+              <h2 class="text-right"><i class="fas fa-user-check f-left"></i><span>{{ pending_student }}</span></h2>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'js/dashboard.js' %}"></script>
+
+{% endblock content %}

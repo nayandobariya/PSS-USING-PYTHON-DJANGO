@@ -1,0 +1,84 @@
+{% extends 'student/studentbase.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Your Papers</h2>
+    {% for paper in papers %}
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5>{{ paper.title }}</h5>
+            </div>
+            <div class="card-body">
+                {% if paper.excel_data %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Enrollment</th>
+                                <th>Marks</th>
+                                <th>Feedback</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in paper.excel_data %}
+                                <tr>
+                                    {% for cell in row %}
+                                        <td>{{ cell }}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No data available.</p>
+                {% endif %}
+                {% if paper.id in approved_paper_ids %}
+                    {% if paper.download_file %}
+                        <a href="{{ paper.download_file.url }}" target="_blank" class="btn btn-info">View Paper</a>
+                        <a href="{{ paper.download_file.url }}" download class="btn btn-primary">Download Paper</a>
+                        {% for pr in paper_requests %}
+                            {% if pr.paper.id == paper.id %}
+                                <a href="{% url 'studentprofile:give_feedback' pr.id %}" class="btn btn-warning">Give Feedback</a>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% elif paper.id in requested_paper_ids %}
+                    <p class="text-muted">Request pending approval.</p>
+                {% else %}
+                    <a href="{% url 'studentprofile:raise_request' paper.id %}" class="btn btn-success">Raise Request</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="mt-5">
+        <h2>Your Paper Requests</h2>
+        {% if requests %}
+            <ul class="list-group">
+                {% for req in requests %}
+                    <li class="list-group-item">
+                        {{ req.paper.title }} - Status: {{ req.status }}
+                        {% if req.status == 'approved' %}
+                            {% if req.paper.download_file %}
+                                <a href="{{ req.paper.download_file.url }}" target="_blank" class="btn btn-info">View Paper</a>
+                                <a href="{{ req.paper.download_file.url }}" download class="btn btn-primary">Download Paper</a>
+                            {% elif req.paper.paper_file %}
+                                <a href="{{ req.paper.paper_file.url }}" target="_blank" class="btn btn-info">View Paper</a>
+                                <a href="{{ req.paper.paper_file.url }}" download class="btn btn-primary">Download Paper</a>
+                            {% endif %}
+                            {% for pr in paper_requests %}
+                                {% if pr.paper.id == req.paper.id %}
+                                    <a href="{% url 'studentprofile:give_feedback' pr.id %}" class="btn btn-warning">Give Feedback</a>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No requests yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
