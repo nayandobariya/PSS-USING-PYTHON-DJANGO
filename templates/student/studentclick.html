@@ -5,37 +5,389 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <style media="screen">
-    .jumbotron {
-      margin-top: 0px;
-      margin-bottom: 0px;
+  <title>Student Portal - LJ University</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/global.css' %}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: 'Arial', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      overflow-x: hidden;
     }
 
-    .jumbotron h1 {
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="15" cy="15" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="85" cy="85" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="70" cy="20" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="25" cy="75" r="2.5" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+      z-index: -1;
+    }
+
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      padding: 100px 20px;
+      position: relative;
     }
 
-  </style>
+    .hero-content {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 25px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+      padding: 60px 40px;
+      max-width: 800px;
+      width: 100%;
+      backdrop-filter: blur(10px);
+      animation: fadeInUp 1s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
 
+    .hero-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+      animation: gradientShift 3s ease-in-out infinite;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      animation: slideInLeft 0.8s ease-out 0.2s both;
+    }
+
+    .hero-content .lead {
+      font-size: 1.5rem;
+      color: #666;
+      margin-bottom: 30px;
+      font-weight: 300;
+      animation: slideInRight 0.8s ease-out 0.4s both;
+    }
+
+    .hero-content hr {
+      border: none;
+      height: 3px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      margin: 40px auto;
+      width: 100px;
+      border-radius: 2px;
+      animation: fadeIn 0.8s ease-out 0.6s both;
+    }
+
+    .hero-content p:not(.lead) {
+      font-size: 1.2rem;
+      color: #777;
+      margin-bottom: 50px;
+      animation: fadeIn 0.8s ease-out 0.8s both;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease-out 1s both;
+    }
+
+    .btn-custom {
+      padding: 18px 40px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      display: inline-block;
+      min-width: 200px;
+    }
+
+    .btn-custom::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-primary-custom {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-primary-custom:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-primary-custom:hover::before {
+      left: 100%;
+    }
+
+    .btn-secondary-custom {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      box-shadow: 0 10px 20px rgba(240, 147, 251, 0.3);
+    }
+
+    .btn-secondary-custom:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(240, 147, 251, 0.4);
+    }
+
+    .btn-secondary-custom:hover::before {
+      left: 100%;
+    }
+
+    .btn-custom i {
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+
+    .features-section {
+      padding: 80px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInUp 0.8s ease-out both;
+    }
+
+    .feature-card:nth-child(1) { animation-delay: 0.1s; }
+    .feature-card:nth-child(2) { animation-delay: 0.2s; }
+    .feature-card:nth-child(3) { animation-delay: 0.3s; }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      color: #333;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    .feature-card p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes gradientShift {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-content {
+        padding: 40px 20px;
+        margin: 20px;
+      }
+
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-content .lead {
+        font-size: 1.2rem;
+      }
+
+      .button-group {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn-custom {
+        margin-bottom: 15px;
+        min-width: 250px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+
+      .hero-content .lead {
+        font-size: 1rem;
+      }
+
+      .btn-custom {
+        padding: 15px 30px;
+        font-size: 1rem;
+        min-width: 200px;
+      }
+
+      .feature-card {
+        padding: 20px;
+      }
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
+  </style>
 </head>
 
 <body>
-
   {% include "exam/navbar.html" %}
-  <br><br>
-  <div class="jumbotron" style="margin-bottom:0px;">
-    <h1 class="display-4">HELLO STUDENT,</h1>
-    <p class="lead">WELCOME TO LJ UNIVERSITY</p>
-    <hr class="my-4">
-    <p>STARA YOUR JOURNEY HERE!</p>
-    <p class="lead">
-      <a class="btn btn-secondary rounded-0" href="{% url 'student_signup' %}" role="button">Create Your Account</a>
-      <a class="btn btn-primary rounded-0" href="{% url 'studentlogin' %}" role="button">Login Now</a>
-    </p>
-    <br><br><br><br><br><br>
+
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1><i class="fas fa-graduation-cap"></i> HELLO STUDENT,</h1>
+      <p class="lead">WELCOME TO LJ UNIVERSITY</p>
+      <hr class="my-4">
+      <p>START YOUR JOURNEY HERE!</p>
+      <div class="button-group">
+        <a class="btn-custom btn-secondary-custom" href="{% url 'student_signup' %}" role="button">
+          <i class="fas fa-user-plus"></i> Create Your Account
+        </a>
+        <a class="btn-custom btn-primary-custom" href="{% url 'studentlogin' %}" role="button">
+          <i class="fas fa-sign-in-alt"></i> Login Now
+        </a>
+      </div>
+    </div>
   </div>
- 
+
+  <div class="features-section">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <h3>Online Exams</h3>
+        <p>Take your exams online from anywhere, anytime with our secure platform.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3>Track Progress</h3>
+        <p>Monitor your academic progress and view detailed marks and results.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h3>Student Community</h3>
+        <p>Connect with fellow students and access study materials and resources.</p>
+      </div>
+    </div>
+  </div>
+
   {% include "exam/footer.html" %}
 </body>
 
