@@ -27,8 +27,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="30" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="30" cy="70" r="2.5" fill="rgba(255,255,255,0.1)"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="30" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="30" cy="70" r="2.5" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="90" r="1.8" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="10" r="2.2" fill="rgba(255,255,255,0.1)"/></svg>');
             z-index: -1;
+            animation: float 6s ease-in-out infinite;
         }
 
         .signup-container {
@@ -55,6 +56,17 @@
             animation: gradientShift 3s ease-in-out infinite;
         }
 
+        .signup-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #f5576c, #f093fb, #764ba2, #667eea);
+            animation: gradientShift 3s ease-in-out infinite reverse;
+        }
+
         h3 {
             color: #333;
             margin-bottom: 40px;
@@ -63,6 +75,7 @@
             font-size: 2.5rem;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
             position: relative;
+            animation: fadeInDown 0.8s ease-out 0.2s both;
         }
 
         h3::after {
@@ -75,11 +88,18 @@
             height: 3px;
             background: linear-gradient(90deg, #667eea, #764ba2);
             border-radius: 2px;
+            animation: growWidth 0.8s ease-out 0.5s both;
         }
 
         .form-row {
             margin-bottom: 20px;
+            animation: fadeInUp 0.6s ease-out both;
         }
+
+        .form-row:nth-child(1) { animation-delay: 0.1s; }
+        .form-row:nth-child(2) { animation-delay: 0.2s; }
+        .form-row:nth-child(3) { animation-delay: 0.3s; }
+        .form-row:nth-child(4) { animation-delay: 0.4s; }
 
         .form-group label {
             font-weight: 600;
@@ -89,6 +109,11 @@
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+
+        .form-group:focus-within label {
+            color: #667eea;
         }
 
         .form-control {
@@ -98,6 +123,7 @@
             font-size: 1rem;
             transition: all 0.3s ease;
             background: rgba(255,255,255,0.8);
+            position: relative;
         }
 
         .form-control:focus {
@@ -109,6 +135,15 @@
 
         .form-control:hover {
             border-color: #764ba2;
+        }
+
+        .form-control::placeholder {
+            color: #adb5bd;
+            transition: color 0.3s ease;
+        }
+
+        .form-control:focus::placeholder {
+            color: #6c757d;
         }
 
         .btn-primary {
@@ -125,6 +160,7 @@
             position: relative;
             overflow: hidden;
             margin-top: 30px;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
         }
 
         .btn-primary::before {
@@ -156,11 +192,14 @@
             border: 2px solid #e1e5e9;
             border-right: none;
             color: #6c757d;
+            transition: all 0.3s ease;
         }
 
         .form-control:focus + .input-group-append .input-group-text,
         .form-control:not(:placeholder-shown) + .input-group-append .input-group-text {
             border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
         }
 
         .file-input-wrapper {
@@ -168,6 +207,7 @@
             overflow: hidden;
             display: inline-block;
             width: 100%;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
         }
 
         .file-input-wrapper input[type="file"] {
@@ -187,17 +227,24 @@
             transition: all 0.3s ease;
             color: #6c757d;
             font-weight: 500;
+            position: relative;
         }
 
         .file-input-label:hover {
             border-color: #667eea;
             background: rgba(102, 126, 234, 0.05);
             color: #667eea;
+            transform: scale(1.02);
         }
 
         .file-input-label i {
             margin-right: 10px;
             font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .file-input-label:hover i {
+            transform: scale(1.1);
         }
 
         @keyframes slideInUp {
@@ -211,6 +258,37 @@
             }
         }
 
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes growWidth {
+            from {
+                width: 0;
+            }
+            to {
+                width: 50px;
+            }
+        }
+
         @keyframes gradientShift {
             0%, 100% {
                 background-position: 0% 50%;
@@ -220,7 +298,6 @@
             }
         }
 
-        /* Floating animation for background elements */
         @keyframes float {
             0%, 100% {
                 transform: translateY(0px) rotate(0deg);
@@ -230,7 +307,7 @@
             }
         }
 
-        /* Responsive Design */
+        /* Enhanced Responsive Design */
         @media (max-width: 768px) {
             .signup-container {
                 padding: 30px;
@@ -316,6 +393,45 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* Additional enhancements */
+        .form-control:valid {
+            border-color: #28a745;
+        }
+
+        .form-control:invalid {
+            border-color: #dc3545;
+        }
+
+        .signup-container:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+
+        /* Focus states for better accessibility */
+        .form-control:focus,
+        .file-input-label:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+        }
+
+        /* Success message styling */
+        .alert-success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border: none;
+            color: white;
+            border-radius: 12px;
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        /* Error message styling */
+        .alert-danger {
+            background: linear-gradient(135deg, #dc3545, #fd7e14);
+            border: none;
+            color: white;
+            border-radius: 12px;
+            animation: slideInUp 0.5s ease-out;
         }
     </style>
   </head>
