@@ -18,10 +18,7 @@
         <a href="/adminclick" class="nav-item nav-link">Admin</a>
         <a href="/contactus" class="nav-item nav-link">Contact Us</a>
         {% if user.is_authenticated %}
-        <form method="post" action="{% url 'logout' %}" style="display: inline;">
-          {% csrf_token %}
-          <input type="submit" value="Logout" class="nav-item nav-link" style="background: none; border: none; color: #ffffff; font-weight: bold; padding: 10px 15px; margin: 0 5px; border-radius: 5px; transition: background-color 0.3s ease; cursor: pointer;">
-        </form>
+        <a href="/logout" class="nav-item nav-link">Logout</a>
         {% endif %}
 
       </div>

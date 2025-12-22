@@ -1,12 +1,91 @@
-# TODO: Fix Website Issues
+# Add Full CSS to Online Exam Project
 
-## Issues to Fix
-- [ ] Logout button shows 500 error - LogoutView redirects to non-existent 'login' URL
-- [ ] Contact us form shows internal server error on submit - Email sending fails without proper error handling
+## Completed Tasks
+- [x] Create global.css file with comprehensive styling
+- [x] Update adminbase.html to use global.css
+- [x] Update index.html to use global.css
+- [x] Update studentlogin.html to use global.css
+- [x] Update admin_dashboard.html to remove redundant CSS link
+- [x] Update teachersignup.html to use global.css
+- [x] Update teacherlogin.html to use global.css
 
-## Tasks
-- [ ] Update logout URL in urls.py to redirect to home page after logout
-- [ ] Improve error handling in contactus_view to catch email exceptions
-- [ ] Test the fixes
-- [ ] Commit changes to Git
-- [ ] Push to GitHub
+## Remaining Tasks
+- [ ] Update all remaining templates to use global.css instead of inline styles/Bootstrap links
+- [ ] Update studentbase.html and teacherbase.html
+- [ ] Update all other HTML templates in templates/ directory
+- [ ] Test the application to ensure styling works correctly
+- [ ] Remove any redundant CSS files if no longer needed
+
+## Templates to Update
+- templates/student/studentbase.html
+- templates/teacher/teacherbase.html
+- templates/student/studentsignup.html
+- templates/teacher/teacherlogin.html
+- templates/exam/navbar.html
+- templates/exam/footer.html
+- templates/exam/adminlogin.html
+- templates/exam/contactus.html
+- templates/exam/contactussuccess.html
+- templates/exam/forgot_password.html
+- templates/exam/password_reset_form.html
+- templates/exam/password_reset_confirm.html
+- templates/exam/password_reset_complete.html
+- templates/exam/password_reset_done.html
+- templates/exam/logout.html
+- templates/exam/admin_add_course.html
+- templates/exam/admin_add_question.html
+- templates/exam/admin_add_student.html
+- templates/exam/admin_check_marks.html
+- templates/exam/admin_course.html
+- templates/exam/admin_question.html
+- templates/exam/admin_student.html
+- templates/exam/admin_teacher.html
+- templates/exam/admin_view_course.html
+- templates/exam/admin_view_marks.html
+- templates/exam/admin_view_pending_student.html
+- templates/exam/admin_view_pending_teacher.html
+- templates/exam/admin_view_question.html
+- templates/exam/admin_view_student.html
+- templates/exam/admin_view_student_marks.html
+- templates/exam/admin_view_teacher.html
+- templates/exam/admin_view_teacher_salary.html
+- templates/exam/salary_form.html
+- templates/exam/update_student.html
+- templates/exam/update_teacher.html
+- templates/exam/view_question.html
+- templates/student/check_marks.html
+- templates/student/registration.html
+- templates/student/start_exam.html
+- templates/student/student_dashboard.html
+- templates/student/student_exam.html
+- templates/student/student_marks.html
+- templates/student/student_profile.html
+- templates/student/student_wait_for_approval.html
+- templates/student/studentsignup.html
+- templates/student/studentclick.html
+- templates/student/take_exam.html
+- templates/student/view_result.html
+- templates/teacher/see_question.html
+- templates/teacher/teacher_add_exam.html
+- templates/teacher/teacher_add_question.html
+- templates/teacher/teacher_dashboard.html
+- templates/teacher/teacher_exam.html
+- templates/teacher/teacher_profile.html
+- templates/teacher/teacher_question.html
+- templates/teacher/teacher_view_exam.html
+- templates/teacher/teacher_view_pending_student.html
+- templates/teacher/teacher_view_question.html
+- templates/teacher/teacher_wait_for_approval.html
+- templates/teacher/teacherclick.html
+- templates/papersubmission/pending_list.html
+- templates/papersubmission/review.html
+- templates/papersubmission/search.html
+- templates/papersubmission/student_papers.html
+- templates/papersubmission/upload.html
+- templates/studentprofile/admin_dashboard.html
+- templates/studentprofile/give_feedback.html
+- templates/studentprofile/request_form.html
+- templates/studentprofile/student_profile.html
+- templates/studentprofile/teacher_dashboard.html
+- templates/studentprofile/teacher_upload.html
+- templates/chat/chat_widget.html

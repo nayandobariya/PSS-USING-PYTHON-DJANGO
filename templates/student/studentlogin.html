@@ -1,85 +1,54 @@
 <!DOCTYPE html>
+{% load static %}
 {% load widget_tweaks %}
-<html lang="en" dir="ltr">
-  <head>
+<html lang="en">
+<head>
     <meta charset="utf-8">
-    <title></title>
-    <style media="screen">
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: sans-serif;
-            background: #adc5df;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to bottom, #d7d2cc, #adc5df);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to bottom, #d7d2cc, #adc5df); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        
-        .box {
-            width: 500px;
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             padding: 40px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            background: #fff;
+            max-width: 400px;
+            width: 100%;
+        }
+        .login-card h1 {
+            color: var(--text-color);
+            margin-bottom: 30px;
             text-align: center;
-            transition: 0.25s;
-            margin-top: 100px
         }
-        
-        .box input[type="text"],
-        .box input[type="password"] {
-            border: 0;
-            background: none;
-            display: block;
-            margin: 20px auto;
-            text-align: center;
-            border: 2px solid #838383;
-            padding: 10px 10px;
-            width: 250px;
-            outline: none;
-            color: #000;
-            transition: 0.25s
-        }
-        
-        .box h1 {
-            color: #424242;
-            font-weight: 500
-        }
-        
-        .box input[type="text"]:focus,
-        .box input[type="password"]:focus {
-            width: 300px;
-            border-color: #c7d7e9;
-        }
-        
-
-
     </style>
-  </head>
-  <body>
+</head>
+<body>
     {% include "exam/navbar.html" %}
-    <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <form class="box" method="post">
-                    {% csrf_token %}
-                    <h1>Student Login Panel</h1>
-
-                     {% render_field form.username class="form-control rounded-0" autocomplete="off" placeholder="Username" %}
-                     {% render_field form.password class="form-control rounded-0" autocomplete="off" placeholder="Password" %}
-
-                     <input type="submit" class="btn btn-primary btn-lg rounded-0" name="" value="Login">
-
-                </form>
-            </div>
+    <div class="login-container">
+        <div class="login-card">
+            <h1>Student Login Panel</h1>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">Username</label>
+                    {% render_field form.username class="form-control" autocomplete="off" placeholder="Enter your username" %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.password.id_for_label }}">Password</label>
+                    {% render_field form.password class="form-control" autocomplete="off" placeholder="Enter your password" %}
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </form>
         </div>
     </div>
-</div>
-<br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br>
-{% include "exam/footer.html" %}
-  </body>
+    {% include "exam/footer.html" %}
+</body>
 </html>
