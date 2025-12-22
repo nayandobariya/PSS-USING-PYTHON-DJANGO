@@ -17,14 +17,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # --------------------------------------------------
 # SECURITY
 # --------------------------------------------------
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', 'unsafe-secret-key-for-build')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
-    'pss-using-python-django-6.onrender.com',
     'pss-using-python-django-2.onrender.com',
+    'pss-using-python-django-6.onrender.com',
     'localhost',
     '127.0.0.1',
+]
+
+# ✅ VERY IMPORTANT (400 ERROR FIX)
+CSRF_TRUSTED_ORIGINS = [
+    'https://pss-using-python-django-2.onrender.com',
+    'https://pss-using-python-django-6.onrender.com',
 ]
 
 # --------------------------------------------------
@@ -140,7 +146,7 @@ LOGIN_REDIRECT_URL = '/afterlogin'
 LOGOUT_REDIRECT_URL = '/'
 
 # --------------------------------------------------
-# EMAIL (GMAIL SMTP)
+# EMAIL
 # --------------------------------------------------
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -160,9 +166,8 @@ if not DEBUG:
 
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-    SECURE_BROWSER_XSS_FILTER = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'DENY'
+    SECURE_CONTENT_TYPE_NOSNIFF = True
 
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
