@@ -17,16 +17,16 @@
         <a href="/student/studentclick" class="nav-item nav-link">Student</a>
         <a href="/adminclick" class="nav-item nav-link">Admin</a>
         <a href="/contactus" class="nav-item nav-link">Contact Us</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="nav-item nav-link">Logout</a>
+        {% endif %}
 
       </div>
 
-    </div>
 
-    {% if user.is_authenticated %}
-    <div class="navbar-nav">
-      <a href="{% url 'logout' %}" class="nav-item nav-link">Logout</a>
+
+
     </div>
-    {% endif %}
   </nav>
 </div>
 

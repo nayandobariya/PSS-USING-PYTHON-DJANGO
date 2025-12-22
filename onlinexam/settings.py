@@ -22,6 +22,7 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
     'pss-using-python-django-6.onrender.com',
+    'pss-using-python-django-2.onrender.com',
     'localhost',
     '127.0.0.1',
 ]
