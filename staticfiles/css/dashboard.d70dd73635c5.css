@@ -1,0 +1,250 @@
+/* Enhanced Dashboard Styles */
+
+/* General Styles */
+.dashboard-container {
+  padding: 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.card .card-block {
+  padding: 30px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+}
+
+.order-card {
+  color: #fff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.order-card:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.f-left {
+  float: left;
+}
+
+.f-right {
+  float: right;
+}
+
+.order-card i {
+  font-size: 30px;
+  opacity: 0.8;
+}
+
+.order-card h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.order-card h6 {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Profile Section */
+.profile-section {
+  text-align: center;
+  margin-bottom: 40px;
+  animation: fadeInUp 1s ease-out;
+}
+
+.profile-section img {
+  border-radius: 50%;
+  border: 5px solid #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.profile-section img:hover {
+  transform: scale(1.1);
+}
+
+.profile-section h4 {
+  margin-top: 15px;
+  color: #333;
+  font-weight: 600;
+}
+
+.profile-section p {
+  color: #666;
+}
+
+/* Student Dashboard Specific */
+.student-card {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  color: #333;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.student-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.student-card .btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.student-card .btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Chart Container */
+.chart-container {
+  background: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  animation: fadeIn 1s ease-out;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.fade-in-up {
+  animation: fadeInUp 1s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card .card-block {
+    padding: 20px;
+  }
+
+  .order-card h2 {
+    font-size: 2rem;
+  }
+
+  .order-card i {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 576px) {
+  .dashboard-container {
+    padding: 10px;
+  }
+
+  .card {
+    margin-bottom: 20px;
+  }
+}
+
+/* Enhanced Text Visibility for Admin and Teacher Panels */
+body, h1, h2, h3, h4, h5, h6, p, a, span, label, button {
+  color: #1a202c !important; /* Dark text for better contrast */
+  font-weight: 600 !important; /* Higher font weight for clarity */
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7); /* subtle light shadow for text */
+}
+
+.dashboard-container h2, .dashboard-container h4 {
+  font-weight: 700 !important;
+  color: #2d3748 !important;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+}
+
+.card, .order-card {
+  color: #f7fafc !important; /* Light text on cards */
+  font-weight: 700 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.sidebar a, .sidebar h4 {
+  font-weight: 700 !important;
+  color: #e2e8f0 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.sidebar a:hover {
+  color: #fff !important;
+  font-weight: 800 !important;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9);
+}
+
+.profile-section h4, .profile-section p {
+  font-weight: 700 !important;
+  color: #2d3748 !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
+}
+
+.btn-primary, .btn-secondary {
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Increase font size for key UI components */
+.dashboard-container h2 {
+  font-size: 2.5rem !important;
+}
+
+.dashboard-container h4 {
+  font-size: 1.75rem !important;
+}
+
+.card .card-block h6, .card .card-block h2 {
+  font-size: 1.25rem !important;
+}
+
+/* Tooltip text bold */
+.tooltip-inner {
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+}
+
+/* Ensure links and buttons have clear focus outlines */
+a:focus, button:focus {
+  outline: 3px solid #3182ce !important;
+  outline-offset: 2px;
+}
