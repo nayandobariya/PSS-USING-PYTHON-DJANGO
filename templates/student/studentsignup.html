@@ -4,113 +4,399 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Student Signup - LJ University</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
         }
-        .container {
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="30" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="30" cy="70" r="2.5" fill="rgba(255,255,255,0.1)"/></svg>');
+            z-index: -1;
+        }
+
+        .signup-container {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            padding: 40px;
-            margin-top: 50px;
-            margin-bottom: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            padding: 50px;
+            margin: 50px auto;
+            max-width: 800px;
+            backdrop-filter: blur(10px);
+            animation: slideInUp 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
         }
+
+        .signup-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
         h3 {
             color: #333;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             text-align: center;
-        }
-        .form-group label {
             font-weight: bold;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .form-row {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: 600;
             color: #555;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
+
         .form-control {
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 15px;
+            border-radius: 12px;
+            border: 2px solid #e1e5e9;
+            padding: 15px 20px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.8);
         }
+
         .form-control:focus {
             border-color: #667eea;
-            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            background: white;
+            transform: translateY(-2px);
         }
+
+        .form-control:hover {
+            border-color: #764ba2;
+        }
+
         .btn-primary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
-            border-radius: 10px;
-            padding: 12px 30px;
-            font-size: 16px;
+            border-radius: 12px;
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 30px;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        .input-group-text {
+            background: #f8f9fa;
+            border: 2px solid #e1e5e9;
+            border-right: none;
+            color: #6c757d;
+        }
+
+        .form-control:focus + .input-group-append .input-group-text,
+        .form-control:not(:placeholder-shown) + .input-group-append .input-group-text {
+            border-color: #667eea;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
             width: 100%;
         }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .file-input-label:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+            color: #667eea;
+        }
+
+        .file-input-label i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Floating animation for background elements */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .signup-container {
+                padding: 30px;
+                margin: 20px;
+            }
+
+            h3 {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                margin-bottom: 15px;
+            }
+
+            .form-control {
+                padding: 12px 15px;
+                font-size: 0.9rem;
+            }
+
+            .btn-primary {
+                padding: 15px 30px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .signup-container {
+                padding: 20px;
+            }
+
+            h3 {
+                font-size: 1.8rem;
+            }
+
+            .form-row {
+                margin-bottom: 10px;
+            }
+
+            .form-control {
+                padding: 10px 12px;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+        }
+
+        /* Loading animation for button */
+        .btn-loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
   </head>
   <body>
     {% include "exam/navbar.html" %}
- 
 
+    <div class="container-fluid">
+        <div class="signup-container">
+            <h3><i class="fas fa-user-plus"></i> Student Signup Form</h3>
+            <form method="POST" autocomplete="off" enctype="multipart/form-data" id="signupForm">
+                {% csrf_token %}
 
-<br><br><br>
-<div class="container">
-  <h3 style="text-align: center;">Student Signup Form</h3>
-<form method="POST" autocomplete="off" enctype="multipart/form-data">
-    {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="first_name"><i class="fas fa-user"></i> First Name</label>
+                        {% render_field userForm.first_name|attr:'required:true'  class="form-control" placeholder="Enter your first name" %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="last_name"><i class="fas fa-user"></i> Last Name</label>
+                        {% render_field userForm.last_name|attr:'required:true'  class="form-control" placeholder="Enter your last name" %}
+                    </div>
+                </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="first_name">First Name</label>
-          {% render_field userForm.first_name|attr:'required:true'  class="form-control form-control-sm rounded-0" placeholder="First Name" %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="mobile"><i class="fas fa-phone"></i> Contact</label>
+                        {% render_field studentForm.mobile|attr:'required:true'  class="form-control" placeholder="Enter your contact number" %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address"><i class="fas fa-map-marker-alt"></i> Address</label>
+                        {% render_field studentForm.address|attr:'required:true'  class="form-control" placeholder="Enter your address" %}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="username"><i class="fas fa-at"></i> Username</label>
+                        {% render_field userForm.username|attr:'required:true'  class="form-control" placeholder="Choose a username" %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4"><i class="fas fa-lock"></i> Password</label>
+                        {% render_field userForm.password|attr:'required:true'  class="form-control" placeholder="Create a strong password" %}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="profile_pic"><i class="fas fa-camera"></i> Profile Picture</label>
+                        <div class="file-input-wrapper">
+                            {% render_field studentForm.profile_pic|attr:'required:true' class="form-control-file" id="profile_pic" %}
+                            <label for="profile_pic" class="file-input-label">
+                                <i class="fas fa-upload"></i>
+                                <span id="file-label">Choose profile picture...</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Sign Up
+                </button>
+            </form>
         </div>
-        <div class="form-group col-md-6">
-          <label for="last_name">Last Name</label>
-          {% render_field userForm.last_name|attr:'required:true'  class="form-control form-control-sm rounded-0" placeholder="Last Name" %}
-        </div>
-      </div>
+    </div>
 
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="mobile">Contact</label>
-          {% render_field studentForm.mobile|attr:'required:true'  class="form-control form-control-sm rounded-0" placeholder="Contact Number" %}
-        </div>
-        <div class="form-group col-md-6">
-          <label for="address">Address</label>
-          {% render_field studentForm.address|attr:'required:true'  class="form-control form-control-sm rounded-0" placeholder="Address" %}
-        </div>
-      </div>
+    {% include "exam/footer.html" %}
 
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="username">Username</label>
-          {% render_field userForm.username|attr:'required:true'  class="form-control form-control-sm rounded-0" placeholder="username" %}
-        </div>
-        <div class="form-group col-md-6">
-          <label for="inputPassword4">Password</label>
-          {% render_field userForm.password|attr:'required:true'  class="form-control form-control-sm rounded-0" placeholder="password" %}
-        </div>
-      </div>
+    <script>
+        // File input label update
+        document.getElementById('profile_pic').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'Choose profile picture...';
+            document.getElementById('file-label').textContent = fileName;
+        });
 
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          <label for="profile_pic">Profile Picture</label>
-          {% render_field studentForm.profile_pic|attr:'required:true' class="form-control form-control-sm rounded-0" placeholder="" %}
-        </div>
-        
-      </div>
-
-
-    <button type="submit" class="btn btn-primary btn-lg rounded-0">Sign Up</button>
-  </form>
-</div>
-
-
-<br><br>
-{% include "exam/footer.html" %}
+        // Form submission loading state
+        document.getElementById('signupForm').addEventListener('submit', function() {
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+            submitBtn.classList.add('btn-loading');
+            submitBtn.disabled = true;
+        });
+    </script>
   </body>
 </html>
