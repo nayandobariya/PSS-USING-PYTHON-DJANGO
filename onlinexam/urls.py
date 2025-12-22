@@ -26,7 +26,7 @@ urlpatterns = [
 
 
     path('adminclick', views.adminclick_view),
-    path('adminlogin', LoginView.as_view(template_name='exam/adminlogin.html'),name='adminlogin'),
+    path('adminlogin', views.admin_login_view, name='adminlogin'),
     path('forgot_password/', views.forgot_password_view, name='forgot_password'),
 
     path('admin-dashboard', views.admin_dashboard_view,name='admin-dashboard'),

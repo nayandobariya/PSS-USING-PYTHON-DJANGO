@@ -58,6 +58,12 @@ def adminclick_view(request):
         return HttpResponseRedirect('afterlogin')
     return HttpResponseRedirect('adminlogin')
 
+def admin_login_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('admin-dashboard')
+    from django.contrib.auth.views import LoginView
+    return LoginView.as_view(template_name='exam/adminlogin.html')(request)
+
 
 @login_required(login_url='adminlogin')
 def admin_dashboard_view(request):
