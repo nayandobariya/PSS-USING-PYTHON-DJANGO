@@ -65,27 +65,35 @@
 }
 .student-selection-container {
     border: 2px solid #e9ecef;
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    max-height: 400px;
+    overflow-y: auto;
 }
 .student-selection-container:hover {
     border-color: #007bff;
-    box-shadow: 0 4px 8px rgba(0,123,255,0.2);
+    box-shadow: 0 6px 12px rgba(0,123,255,0.25);
 }
 .student-selection-container .form-check {
     border: 1px solid #dee2e6;
-    margin: 0.25rem;
-    background-color: rgba(255,255,255,0.8);
-    transition: all 0.2s ease;
+    margin: 0.5rem;
+    background-color: rgba(255,255,255,0.9);
+    transition: all 0.3s ease;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
 }
 .student-selection-container .form-check:hover {
     border-color: #007bff;
     background-color: rgba(0,123,255,0.1);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .student-selection-container .form-check-input:checked ~ .form-check-label {
     color: #0056b3;
+    font-weight: bold;
 }
