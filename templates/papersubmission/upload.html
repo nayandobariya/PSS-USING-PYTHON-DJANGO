@@ -2,9 +2,17 @@
 {% load widget_tweaks %}
 {% block content %}
 <style>
+/* Custom select wrapper to show full selected text */
+.select-wrapper {
+    position: relative !important;
+    width: 100% !important;
+    min-width: 500px !important;
+    display: block !important;
+}
+
 .upload-form select {
     width: 100% !important;
-    min-width: 300px !important;
+    min-width: 500px !important;
     max-width: 100% !important;
     padding: 12px 16px !important;
     border-radius: 10px !important;
@@ -23,6 +31,11 @@
     padding-right: 40px !important;
     box-sizing: border-box !important;
     display: block !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: nowrap !important;
+    position: relative !important;
+    z-index: 1 !important;
 }
 
 .upload-form select:focus {
@@ -42,18 +55,38 @@
     text-overflow: clip !important;
     max-width: none !important;
     width: auto !important;
+    display: block !important;
 }
 
 /* Ensure the form group container doesn't constrain the select */
 .upload-form .form-group {
     width: 100% !important;
     max-width: 100% !important;
+    overflow: visible !important;
+    position: relative !important;
 }
 
 /* Force the select to expand to show full text */
 .upload-form select[id*="course"] {
-    min-width: 350px !important;
+    min-width: 500px !important;
     width: 100% !important;
+    overflow: visible !important;
+}
+
+/* Container to allow overflow */
+.upload-form {
+    overflow: visible !important;
+    position: relative !important;
+    width: 100% !important;
+}
+
+/* Make sure the selected text is fully visible */
+.upload-form select::-ms-value {
+    background: transparent !important;
+    color: #1a202c !important;
+    text-overflow: clip !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
 }
 </style>
 <div class="container">
