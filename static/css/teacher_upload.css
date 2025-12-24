@@ -83,6 +83,12 @@
     width: 100%;
     margin-bottom: 0;
 }
+#uploadSection {
+    clear: both;
+    margin-top: 2rem;
+    position: relative;
+    z-index: 1;
+}
 .student-selection-container:hover {
     border-color: #007bff;
     box-shadow: 0 6px 12px rgba(0,123,255,0.25);
