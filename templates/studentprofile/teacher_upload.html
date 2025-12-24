@@ -69,7 +69,6 @@
                     <table id="studentUploadArea" class="table table-striped mb-4">
                         <thead>
                             <tr>
-                                <th>Student Name</th>
                                 <th>Upload Paper File (PDF/DOC)</th>
                             </tr>
                         </thead>
@@ -101,10 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
             studentUploadArea.innerHTML = '';
             selectedCheckboxes.forEach(checkbox => {
                 const studentId = checkbox.value;
-                const studentName = document.querySelector(`label[for="${checkbox.id}"]`).textContent.trim();
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${studentName}</td>
                     <td>
                         <input type="file" name="student_files[${studentId}]" class="form-control" accept=".pdf,.doc,.docx" required>
                     </td>
