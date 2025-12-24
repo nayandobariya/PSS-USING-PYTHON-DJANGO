@@ -8,8 +8,8 @@
 <form method="POST" autocomplete="off" style="max-width: 700px; margin: 40px auto 0; background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0;">
     {%csrf_token%}
     <div class="form-group">
-        <label for="question" style="font-weight: 600; color: #4a5568; margin-bottom: 8px; display: block; font-size: 1.1rem;">Course</label>
-      {% render_field questionForm.courseID|attr:'required:true' class="form-control rounded-0"  %}
+      <label for="question" style="font-weight: 600; color: #4a5568; margin-bottom: 8px; display: block; font-size: 1.1rem;">Course</label>
+      {% render_field questionForm.courseID|attr:'required:true' class="form-control rounded-0" style="width: 100%;"  %}
         <br>
 
       <label for="question" style="font-weight: 600; color: #4a5568; margin-bottom: 8px; display: block; font-size: 1.1rem;">Question</label>

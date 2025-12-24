@@ -13,6 +13,7 @@
 
     <form class="form" autocomplete="off" action="{% url 'calculate_marks' %}" method="POST">
         {% csrf_token %}
+        <input type="hidden" name="course_id" value="{{course.id}}">
         <h2 style="text-align: center;">Course: {{course.course_name}}</h2>
         {% for q in questions%}
         <div class="d-flex w-100 align-items-center">

@@ -6,6 +6,6 @@ class PaperUploadForm(forms.ModelForm):
         model = TheoryPaper
         fields = ['course', 'paper_file']
         widgets = {
-            'course': forms.Select(attrs={'class': 'form-control'}),
+            'course': forms.Select(attrs={'class': 'form-control', 'style': 'width: 100%;'}),
             'paper_file': forms.FileInput(attrs={'class': 'form-control'}),
         }

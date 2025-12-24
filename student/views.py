@@ -226,25 +226,31 @@ def start_exam_view(request,pk):
 @login_required(login_url='studentlogin')
 @user_passes_test(is_student)
 def calculate_marks_view(request):
-    if request.method == 'POST' and request.COOKIES.get('course_id') is not None:
-        course_id = request.COOKIES.get('course_id')
-        course=QMODEL.Course.objects.get(id=course_id)
+    if request.method == 'POST':
+        # Get course_id from POST data instead of cookie
+        course_id = request.POST.get('course_id')
+        if course_id:
+            try:
+                course = QMODEL.Course.objects.get(id=course_id)
+                total_marks = 0
+                questions = QMODEL.Question.objects.all().filter(course=course)
 
-        total_marks=0
-        questions=QMODEL.Question.objects.all().filter(course=course)
-        for i in range(len(questions)):
-            selected_ans = request.POST.get(str(i+1))
-            actual_answer = questions[i].answer
-            if selected_ans == actual_answer:
-                total_marks = total_marks + questions[i].marks
-        student = models.Student.objects.get(user_id=request.user.id)
-        result = QMODEL.Result()
-        result.marks=total_marks
-        result.exam=course
-        result.student=student
-        result.save()
+                for i in range(len(questions)):
+                    selected_ans = request.POST.get(str(i+1))
+                    actual_answer = questions[i].answer
+                    if selected_ans == actual_answer:
+                        total_marks = total_marks + questions[i].marks
 
-        return HttpResponseRedirect(reverse('view_result'))
+                student = models.Student.objects.get(user_id=request.user.id)
+                result = QMODEL.Result()
+                result.marks = total_marks
+                result.exam = course
+                result.student = student
+                result.save()
+
+                return HttpResponseRedirect(reverse('view_result'))
+            except QMODEL.Course.DoesNotExist:
+                pass
     return HttpResponseRedirect(reverse('student_dashboard'))
 
 
