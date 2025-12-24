@@ -11,7 +11,7 @@
 
 <div class="jumbotron my-4">
 
-    <form class="form" autocomplete="off" onsubmit="return saveAns()" action="{% url 'calculate_marks' %}" method="POST">
+    <form class="form" autocomplete="off" action="{% url 'calculate_marks' %}" method="POST">
         {% csrf_token %}
         <h2 style="text-align: center;">Course: {{course.course_name}}</h2>
         {% for q in questions%}
@@ -27,7 +27,7 @@
 
 
         <div class="form-check mx-4 d-flex align-items-center">
-            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option1}}" value="Option1">
+            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option1}}" value="Option1" required>
             <label class="form-check-label ml-3" for="option1">
               {{q.option1}}
             </label>
@@ -35,7 +35,7 @@
 
 
         <div class="form-check mx-4 d-flex align-items-center">
-            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option2}}" value="Option2">
+            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option2}}" value="Option2" required>
             <label class="form-check-label ml-3" for="option2">
               {{q.option2}}
             </label>
@@ -43,7 +43,7 @@
 
 
         <div class="form-check mx-4 d-flex align-items-center">
-            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option3}}" value="Option3">
+            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option3}}" value="Option3" required>
             <label class="form-check-label ml-3" for="option3">
               {{q.option3}}
             </label>
@@ -51,7 +51,7 @@
 
 
         <div class="form-check mx-4 d-flex align-items-center">
-            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option4}}" value="Option4">
+            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option4}}" value="Option4" required>
             <label class="form-check-label ml-3" for="option4">
               {{q.option4}}
             </label>
