@@ -93,7 +93,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const checkboxes = document.querySelectorAll('input[name="selected_students"]');
     const uploadSection = document.getElementById('uploadSection');
     const studentUploadArea = document.getElementById('studentUploadArea').querySelector('tbody');
-    const generateListBtn = document.getElementById('generateListBtn');
 
     function updateUploadSection() {
         const selectedCheckboxes = Array.from(checkboxes).filter(cb => cb.checked);
@@ -102,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
             studentUploadArea.innerHTML = '';
             selectedCheckboxes.forEach(checkbox => {
                 const studentId = checkbox.value;
-                const studentName = checkbox.parentElement.textContent.trim();
+                const studentName = document.querySelector(`label[for="${checkbox.id}"]`).textContent.trim();
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${studentName}</td>
@@ -116,10 +115,6 @@ document.addEventListener('DOMContentLoaded', function() {
             uploadSection.style.display = 'none';
         }
     }
-
-    generateListBtn.addEventListener('click', function() {
-        updateUploadSection();
-    });
 
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', updateUploadSection);
