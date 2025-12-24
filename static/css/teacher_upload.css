@@ -74,6 +74,14 @@
     margin: 1rem 0;
     max-height: 400px;
     overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    z-index: auto;
+    width: 100%;
+}
+.student-selection-container .table {
+    width: 100%;
+    margin-bottom: 0;
 }
 .student-selection-container:hover {
     border-color: #007bff;
